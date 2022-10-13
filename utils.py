@@ -1,7 +1,8 @@
 __all__ = ["check_diff", 'get_curtime', 'filter', 'conver2ascii']
 
 from datetime import datetime
-
+from argparse import ArgumentParser
+import re
 
 def check_diff(cur_ids, new_ids):
     '''
@@ -36,8 +37,62 @@ def filter(body):
         else:
             new_body.append(content)
 
-    return ''.join(new_body)
+    filtered = ''.join(new_body)
+    filtered = conver2ascii(filtered)
+    filtered = ''.join([chr(i) for i in filtered if i==32 or 65<=i<=90 or 97<=i<=122])
+    filtered = re.sub(" +", " ", filtered)
+
+    return filtered.lower()
 
 
 def conver2ascii(body):
     return [ord(c) for c in body]
+
+
+def build_args(config):
+    parser = ArgumentParser()
+
+    parser.add_argument(
+        '--account',
+        type=str,
+        default=config["account"]+"@gmail.com",
+        help='Gmail account')
+
+    parser.add_argument(
+        '--password',
+        type=str,
+        default=config["password"],
+        help='password')
+
+    parser.add_argument(
+        '--sound_interval',
+        type=float,
+        default=config["sound_interval"],
+        help='sound_interval')
+
+    parser.add_argument(
+        '--total_duration',
+        type=float,
+        default=config["total_duration"],
+        help='total_duration')
+
+
+    parser.add_argument(
+        '--label_name',
+        type=str,
+        default=config["label_name"],
+        help='label_name')
+
+    parser.add_argument(
+        '--source_path',
+        type=str,
+        default=config["source_path"],
+        help='source_path')
+
+    parser.add_argument(
+        '--save_path',
+        type=str,
+        default=config["save_path"],
+        help='save_path')
+
+    return parser.parse_args()

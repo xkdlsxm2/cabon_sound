@@ -1,0 +1,22 @@
+{
+  "account": "jinhokim.kor",
+  "__account": "Gmail account without @gmail.com",
+
+  "password": "cyyerqyjdgideenl",
+  "__password": "App password for Gmail",
+
+  "sound_interval": 1,
+  "__sound_interval": "Sound interval in second for individual sounds",
+
+  "total_duration": 30,
+  "__total_duration": "Total play duration in second",
+
+  "label_name": "test",
+  "__label_name": "Label name in the gmail",
+
+  "source_path": "C:\\Users\\z0048drc\\Desktop\\cabon_sound\\sources",
+  "__source_path": "Path where source files are saved",
+
+  "save_path": "C:\\Users\\z0048drc\\Desktop\\cabon_sound",
+  "__save_path": "Path where output sound will be saved"
+}

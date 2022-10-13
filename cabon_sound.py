@@ -3,16 +3,15 @@ import email
 from sounds import sound_mixer
 from utils import *
 
-MAIL_ADDRESS = 'jinhokim.kor@gmail.com'
-PASSWORD = 'sclwpsrtaieleney'
 IMAP_SERVER = "imap.gmail.com"
 
 class cabon_sound:
-    def __init__(self, duration_sec=15, interval_ms=200):
+    def __init__(self, args):
+        self.args = args
         self.mail = self._get_email()  # initialize the current mail instance.
         self.cur_ids = self._get_Mid(self.mail)
         self.new_mail, self.new_ids = None, None
-        self.sound_mixer = sound_mixer(duration_sec, interval_ms)
+        self.sound_mixer = sound_mixer(args)
 
     def _get_email(self):
         '''
@@ -20,8 +19,8 @@ class cabon_sound:
         :return: IMAP mail instance
         '''
         mail = imaplib.IMAP4_SSL(IMAP_SERVER)
-        mail.login(MAIL_ADDRESS, PASSWORD)
-        mail.select('test')
+        mail.login(self.args.account, self.args.password)
+        mail.select(self.args.label_name)
 
         return mail
 
@@ -61,8 +60,7 @@ class cabon_sound:
                                 if part.get_content_type() == "text/plain":
                                     body = part.get_payload()
                                     body = filter(body)
-                                    body_ascii = conver2ascii(body)
-                                    self.sound_mixer.run(body_ascii)
+                                    self.sound_mixer.run(body)
                 except:
                     pass
                 self.cur_ids = new_ids
