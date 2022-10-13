@@ -4,6 +4,7 @@ from datetime import datetime
 from argparse import ArgumentParser
 import re
 
+
 def check_diff(cur_ids, new_ids):
     '''
     Check if there is changes in the mailbox.
@@ -39,7 +40,7 @@ def filter(body):
 
     filtered = ''.join(new_body)
     filtered = conver2ascii(filtered)
-    filtered = ''.join([chr(i) for i in filtered if i==32 or 65<=i<=90 or 97<=i<=122])
+    filtered = ''.join([chr(i) for i in filtered if i == 32 or 65 <= i <= 90 or 97 <= i <= 122])
     filtered = re.sub(" +", " ", filtered)
 
     return filtered.lower()
@@ -55,7 +56,7 @@ def build_args(config):
     parser.add_argument(
         '--account',
         type=str,
-        default=config["account"]+"@gmail.com",
+        default=config["account"] + "@gmail.com",
         help='Gmail account')
 
     parser.add_argument(
@@ -75,7 +76,6 @@ def build_args(config):
         type=float,
         default=config["total_duration"],
         help='total_duration')
-
 
     parser.add_argument(
         '--label_name',
